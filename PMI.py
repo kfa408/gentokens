@@ -22,8 +22,11 @@ def buildDictIndices(inputList):
     return dictIndex
 
 
-def wordCountList(inputList, dictIndex, cWin=1):
-    numV = len(dictIndex)
+def wordCountList(inputList, cWin=1):
+    tokenDict = buildDict(inputList)
+    print(tokenDict)
+    countDict = dict((el, ei) for ei, el in enumerate(tokenDict))
+    numV = len(tokenDict)
     countMatrix = np.zeros((numV, numV))
     for i in inputList:
         leni = len(i)
@@ -32,8 +35,8 @@ def wordCountList(inputList, dictIndex, cWin=1):
             unique, count = np.unique(wWin, return_counts=True)
             uniquek = len(unique)
             for k in range(uniquek):
-                countMatrix[dictIndex[i[j]]][dictIndex[unique[k]]] += count[k]
-            countMatrix[dictIndex[i[j]]][dictIndex[i[j]]] -= 1
+                countMatrix[countDict[i[j]]][countDict[unique[k]]] += count[k]
+            countMatrix[countDict[i[j]]][countDict[i[j]]] -= 1
     return countMatrix
 
 
@@ -63,5 +66,5 @@ def computePMI(countMatrix):
     for i in range(numV):
         for j in range(numV):
             eij = countMatrix[i][j]*tots/marg[i]/marg[j]
-            PMIMatrix[i][j] = round(math.log(eij), 2) if eij > 0 else 0
+            PMIMatrix[i][j] = math.log(eij) if eij > 0 else 0
     return PMIMatrix
