@@ -1,8 +1,8 @@
 """
-This is an example script.
+This script generate token strings.
 
-It seems that it has to have THIS docstring with a summary line, a blank line
-and sume more text like here. Wow.
+It will be refactored in the future. Currently it defines a dummy class and
+generate strings of tokens to describe identity and relation statements.
 """
 
 import numpy as np

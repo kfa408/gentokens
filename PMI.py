@@ -53,7 +53,7 @@ def computeJoint(countMatrix):
             for i in range(len(countMatrix))]
 
 
-def computeMarg1(countMatrix):
+def computeMarg(countMatrix):
     tots = computeTot(countMatrix)
     return [np.sum(i)/tots for i in countMatrix]
 
@@ -66,5 +66,5 @@ def computePMI(countMatrix):
     for i in range(numV):
         for j in range(numV):
             eij = countMatrix[i][j]*tots/marg[i]/marg[j]
-            PMIMatrix[i][j] = math.log(eij) if eij > 0 else 0
+            PMIMatrix[i][j] = math.log(eij) if eij > 0 else -math.inf
     return PMIMatrix
